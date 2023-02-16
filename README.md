@@ -24,3 +24,11 @@ https://tabler-icons-react.vercel.app/
 npm i @tabler/icons-react
 ```
 
+### Zustand
+https://github.com/pmndrs/zustand
+
+
+```shell
+npm i zustand
+```
+
