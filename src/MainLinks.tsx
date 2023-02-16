@@ -1,6 +1,6 @@
 ﻿import React from 'react';
 import { ThemeIcon, UnstyledButton, Group, Text } from '@mantine/core';
-import {Bulb, Plus} from 'tabler-icons-react';
+import {Bulb, Cloud, MoodSmile, Plus} from 'tabler-icons-react';
 import {Link} from "react-router-dom";
 
 interface MainLinkProps {
@@ -38,8 +38,8 @@ function MainLink({ icon, color, label, page }: MainLinkProps) {
 }
 
 const data = [
-    { icon: <Bulb size={16}  />, color: 'teal', label: 'Jokes', page: 'jokes' },
-    // { icon: <AlertCircle size={16} />, color: 'teal', label: 'Open Issues' },
+    { icon: <MoodSmile size={16}  />, color: 'teal', label: 'Jokes', page: 'jokes' },
+    { icon: <Cloud size={16} />, color: 'blue', label: 'OneDrive', page: 'onedrive' },
     // { icon: <Messages size={16} />, color: 'violet', label: 'Discussions' },
     // { icon: <Database size={16} />, color: 'grape', label: 'Databases' },
 ];

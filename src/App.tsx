@@ -5,7 +5,7 @@ import {MainLinks} from "./MainLinks";
 import {UserLogin} from './UserLogin';
 import './App.css';
 import { Routes, Route } from 'react-router-dom';
-import { Jokes } from './features';
+import {Jokes, OneDrive} from './features';
 
 function App() {
     const [colorScheme, setColorScheme] = useState<ColorScheme>('light');
@@ -30,6 +30,7 @@ function App() {
                         <Routes>
                             <Route path="/" element={<Jokes/>}/>
                             <Route path="/jokes" element={<Jokes/>}/>
+                            <Route path="/onedrive" element={<OneDrive/>}/>
                         </Routes>
                     </div>
                 </div>
