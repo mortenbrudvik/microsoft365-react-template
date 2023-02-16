@@ -16,10 +16,10 @@ export const OneDrive = () => {
         }
     };
 
-    function handleBreadcrumbClick(item: DriveItem) {
+    const handleBreadcrumbClick = (item: DriveItem) => {
         setFolderId(item.id!);
         setBreadcrumbs(breadcrumbs.slice(0, breadcrumbs.indexOf(item) + 1));
-    }
+    };
 
     return (
         <Stack w={500}>
