@@ -1,0 +1,11 @@
+﻿.aside {
+    height: 100vh;
+    position: fixed;
+}
+
+.content {
+   position: absolute;
+    top: 0;
+    left: 300px;
+    padding: 20px;
+}
