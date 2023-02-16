@@ -39,13 +39,13 @@ export const Groups = () => {
             <Title order={3}>Groups</Title>
             <Stack spacing={6}>
                 {groupStore.teams.map((team) => (
-                    <Group spacing={8}>
+                    <Group spacing={8} key={team.id}>
                         <SiMicrosoftteams color="blue" size={20} />
                         <Text size={16} key={team.id}>{team.name}</Text>
                     </Group>
                 ))}
                 {groupStore.sites.map((site) => (
-                    <Group spacing={8}>
+                    <Group spacing={8} key={site.id}>
                         <SiMicrosoftsharepoint color="green" size={20} />
                         <Text size={16} key={site.id}>{site.name}</Text>
                     </Group>

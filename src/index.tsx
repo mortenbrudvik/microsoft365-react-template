@@ -7,7 +7,7 @@ import {BrowserRouter} from "react-router-dom";
 
 Providers.globalProvider = new Msal2Provider({
     clientId: '714f59f6-e68c-454b-ab67-d73b6fa73f12',
-    scopes: ['Group.Read.All', 'GroupMember.Read.All',
+    scopes: ['Files.ReadWrite.AppFolder', 'Group.Read.All', 'GroupMember.Read.All',
         'Mail.ReadBasic','offline_access', 'openid', 'People.Read', 'People.Read.All', 
         'Presence.Read', 'Presence.Read.All', 'profile',
         'Sites.Read.All', 'user.read', 'User.ReadBasic.All', 'User.Read.All']

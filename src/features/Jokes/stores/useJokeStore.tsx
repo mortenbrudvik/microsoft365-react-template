@@ -9,13 +9,16 @@ export interface JokeStore {
     addJoke: (joke: Joke) => void;
     shareWith: (joke: Joke, persons: IDynamicPerson[]) => void;
     setSelected: (joke: Joke|undefined) => void;
+    clear: () => void;
 }
 
 export const useJokeStore = create(immer<JokeStore>((set, get) => ({
     jokes: [],
     selectedJoke: undefined,
     addJoke: (joke: Joke) => set((state) => {
-        state.jokes.push(joke);
+        if(!state.jokes.find(j => j.id === joke.id)){
+            state.jokes.push(joke);
+        }
     }),
     shareWith: (joke: Joke, persons: IDynamicPerson[]) => set((state) => {
         const updatedJoke = state.jokes.find(j => j.id === joke.id)!;
@@ -23,5 +26,9 @@ export const useJokeStore = create(immer<JokeStore>((set, get) => ({
     }),
     setSelected: (joke: Joke|undefined) => set((state) => {
         state.selectedJoke = joke;
+    }),
+    clear: () => set((state) => {
+        state.jokes = [];
+        state.selectedJoke = undefined;
     }),
 })));
