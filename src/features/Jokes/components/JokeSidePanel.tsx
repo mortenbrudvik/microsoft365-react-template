@@ -1,6 +1,6 @@
 import {useJokeStore} from "../stores/useJokeStore";
 import {useClickOutside} from "@mantine/hooks";
-import {Affix, Paper, Stack, Text, TextInput} from "@mantine/core";
+import { Affix, Button, Paper, Stack, Text } from "@mantine/core";
 import {PeoplePicker, PersonType} from "@microsoft/mgt-react";
 
 export const JokeSidePanel = ({jokeId}: { jokeId: string }) => {
@@ -8,8 +8,8 @@ export const JokeSidePanel = ({jokeId}: { jokeId: string }) => {
     const ref = useClickOutside(() => jokeStore.setSelected(undefined));
 
     const joke = jokeStore.jokes.find(j => j.id === jokeId);
-    if (!joke) return <div>no joke</div>;
-    const {sharedWith, id, punchline, setup} = joke!;
+    if (!joke) return <></>;
+    const {sharedWith} = joke!;
     return <Affix position={{top: 50, right: 50}}>
         <Paper shadow="xs" p="md" w={400} ref={ref}>
             <Stack>
@@ -23,7 +23,10 @@ export const JokeSidePanel = ({jokeId}: { jokeId: string }) => {
                         jokeStore.shareWith(joke, e.target.selectedPeople);
                     }}
                 />
-
+                
+                <Button w={150} onClick={()=> {
+                  jokeStore.delete(joke);
+                }}>Delete</Button>
             </Stack>
         </Paper></Affix>
 };

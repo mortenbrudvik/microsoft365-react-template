@@ -10,6 +10,7 @@ export interface JokeStore {
     shareWith: (joke: Joke, persons: IDynamicPerson[]) => void;
     setSelected: (joke: Joke|undefined) => void;
     clear: () => void;
+    delete(joke: Joke): void;
 }
 
 export const useJokeStore = create(immer<JokeStore>((set, get) => ({
@@ -31,4 +32,7 @@ export const useJokeStore = create(immer<JokeStore>((set, get) => ({
         state.jokes = [];
         state.selectedJoke = undefined;
     }),
+    delete: (joke: Joke) => set((state) => {
+        state.jokes = state.jokes.filter(j => j.id !== joke.id);
+    })
 })));
