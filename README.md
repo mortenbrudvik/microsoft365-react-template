@@ -24,7 +24,14 @@ https://tabler-icons-react.vercel.app/
 npm i @tabler/icons-react
 ```
 
-### Zustand
+#### React Icons
+https://github.com/react-icons/react-icons
+
+```shell
+npm i react-icons
+```
+
+#### Zustand
 https://github.com/pmndrs/zustand
 
 

@@ -1,8 +1,13 @@
 import * as React from 'react';
-import {useEffect} from "react";
-import {Providers} from "@microsoft/mgt-element";
-import {Group, Site} from '@microsoft/microsoft-graph-types';
-import {useGroupStore} from "./stores/useGroupStore";
+import { useEffect } from "react";
+import { Providers } from "@microsoft/mgt-element";
+import { Site } from '@microsoft/microsoft-graph-types';
+import { useGroupStore } from "./stores/useGroupStore";
+import { Stack, Group, Text, Title } from '@mantine/core';
+import { SiMicrosoftsharepoint, SiMicrosoftteams } from "react-icons/si";
+import { getTeams } from "features/Groups/api/getTeams";
+import { GroupItem } from "features/Groups/types/GroupItem";
+import { getSites } from "features/Groups/api/getSites";
 
 export const Groups = () => {
     
@@ -10,43 +15,19 @@ export const Groups = () => {
     
     useEffect(() => {
         const fetchGroups = async () => {
-            const graphClient = Providers.globalProvider.graph.client;
-
-            // Fetch Microsoft Teams groups
-            const teamsResult = await graphClient
-                .api('/me/joinedTeams')
-                .select('id,displayName,description')
-                .get();
-
-            teamsResult.value.forEach((group: Group) => {
-                if(groupStore.exists(group.id)) {
-                    return;
+            const teams = await getTeams();
+            teams.forEach((group: GroupItem) => {
+                if(!groupStore.exists(group.id)) {
+                    groupStore.addGroup(group);
                 }
-                groupStore.addGroup({
-                    id: group.id,
-                    type: "teams",
-                    name: group.displayName ?? "",
-                    description: group.description ?? ""
-                });
             });
+            
+            const sites = await getSites();
 
-            // Fetch SharePoint groups
-            const domainData = await Providers.client?.api("/sites/root?$select=siteCollection").get();
-            if(!domainData) return null;
-            const domain = domainData.siteCollection.hostname.split(".")[0];
-
-            const sites =  await Providers.client?.api("/sites?search=" + domain + ".sharepoint&$Select=id,name,displayName,webUrl").get();
-
-            sites.value.forEach((group: Site) => {
-                if(groupStore.exists(group.id)) {
-                    return;
+            sites.forEach((site: GroupItem) => {
+                if(!groupStore.exists(site.id)) {
+                    groupStore.addGroup(site);
                 }
-                groupStore.addGroup({
-                    id: group.id,
-                    type: "sharepoint",
-                    name: group.displayName ?? "",
-                    description: group.description ?? ""
-                });
             });
         }
 
@@ -54,23 +35,22 @@ export const Groups = () => {
     }, []);
     
     return (
-        <div>
-            <h2>Microsoft Teams groups:</h2>
-            <ul>
+        <Stack>
+            <Title order={3}>Groups</Title>
+            <Stack spacing={6}>
                 {groupStore.teams.map((team) => (
-                    <li key={team.id}>
-                        {team.name} ({team.description})
-                    </li>
+                    <Group spacing={8}>
+                        <SiMicrosoftteams color="blue" size={20} />
+                        <Text size={16} key={team.id}>{team.name}</Text>
+                    </Group>
                 ))}
-            </ul>
-            <h2>SharePoint groups:</h2>
-            <ul>
-                {groupStore.sites.map((group) => (
-                    <li key={group.id}>
-                        {group.name} ({group.description})
-                    </li>
+                {groupStore.sites.map((site) => (
+                    <Group spacing={8}>
+                        <SiMicrosoftsharepoint color="green" size={20} />
+                        <Text size={16} key={site.id}>{site.name}</Text>
+                    </Group>
                 ))}
-            </ul>
-        </div>
+            </Stack>
+        </Stack>
     );
 };
