@@ -2,6 +2,7 @@
 import { ThemeIcon, UnstyledButton, Group, Text } from '@mantine/core';
 import {Cloud, MoodSmile, Share} from 'tabler-icons-react';
 import {Link} from "react-router-dom";
+import { useIsSignedIn } from "hooks";
 
 interface MainLinkProps {
     icon: React.ReactNode;
@@ -11,6 +12,7 @@ interface MainLinkProps {
 }
 
 function MainLink({ icon, color, label, page }: MainLinkProps) {
+    
     return (<Link to={"/" + page} style={{textDecoration: 'none'}}>
             <UnstyledButton
                 sx={(theme) => ({

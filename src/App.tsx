@@ -6,9 +6,11 @@ import {UserLogin} from './UserLogin';
 import './App.css';
 import { Routes, Route } from 'react-router-dom';
 import {Groups, Jokes, OneDrive} from './features';
+import { useIsSignedIn } from "hooks";
 
 function App() {
     const [colorScheme, setColorScheme] = useState<ColorScheme>('light');
+    const isSignedIn = useIsSignedIn();
     const toggleColorScheme = (value?: ColorScheme) => setColorScheme(value || (colorScheme === 'dark' ? 'light' : 'dark'));
     
     return (
@@ -20,7 +22,7 @@ function App() {
                             <Brand/>
                         </Navbar.Section>
                         <Navbar.Section grow mt="md">
-                            <MainLinks/>
+                            {isSignedIn && <MainLinks/>}
                         </Navbar.Section>
                         <Navbar.Section>
                             <UserLogin/>
