@@ -31,7 +31,6 @@ export const Jokes = () => {
     
     useEffect(() => {
         (async () => {
-            if(jokeStore.jokes.length === 0) return;
             console.log("Posting jokes");
             await postJokes(jokeStore.jokes);
         }

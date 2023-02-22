@@ -18,9 +18,9 @@ function App() {
             <MantineProvider withGlobalStyles withNormalizeCSS>
                 <div>
                     <Navbar className="aside" p="xs" width={{base: 300}}>
-                        <Navbar.Section mt="xs">
-                            <Brand/>
-                        </Navbar.Section>
+                        {/*<Navbar.Section mt="xs">*/}
+                        {/*    <Brand/>*/}
+                        {/*</Navbar.Section>*/}
                         <Navbar.Section grow mt="md">
                             {isSignedIn && <MainLinks/>}
                         </Navbar.Section>
